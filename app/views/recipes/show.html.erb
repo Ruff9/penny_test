@@ -1,0 +1,34 @@
+<div class='main-wrapper'>
+  <%= link_to root_path do %>
+    <div class='back-to-root-button'>Back to home</div>
+  <% end %>
+
+  <h1 class='page-title'><%= @recipe.title %></h1>
+
+  <div class='recipe-container'>
+    <div class='infos-container'>
+      <div class='info-container'>
+        Author : <%= @recipe.author %>
+      </div>
+      <div class='info-container'>
+        Prep time : <%= @recipe.prep_time %> minutes
+      </div>
+      <div class='info-container'>
+        Cook time : <%= @recipe.cook_time %> minutes
+      </div>
+      <div class='info-container'>
+        Ratings : <%= @recipe.ratings %>/5
+      </div>
+    </div>
+
+    <div class='ingredients-container'>
+      <h2 class='ingredients-title'>Ingredients</h2>
+      <ul>
+        <% @recipe.ingredients.each do |ingredient| %>
+          <li><%= ingredient.amount %> <%= ingredient.unit %> <%= ingredient.food_item.title %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
