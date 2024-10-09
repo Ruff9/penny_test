@@ -1,6 +1,22 @@
 <div class='main-wrapper'>
   <h1 class='page-title'>Find your recipe</h1>
 
+  <%= form_for :ingredients, method: 'get', url: 'recipes', class:'ingredients-filter-form' do |form| %>
+    <div class='ingredients-filter-container'>
+      <% @base_ingredients.each do |ingredient| %>
+        <label class='ingredient-select'>
+          <%= check_box_tag "ingredients[]", ingredient, @selected_ingredients.include?(ingredient), id: ingredient %>
+          <%= ingredient.capitalize() %>
+        </label>
+      <% end %>
+    </div>
+
+    <div class='ingredient-filter-controls'>
+      <%= link_to 'Clear filters', root_path, class: 'ingredients-filter-reset' %>
+      <%= form.submit 'Filter recipes', class: 'ingredients-filter-submit' %>
+    </div>
+  <% end %>
+
   <div class='main-container'>
     <% @recipes.each do |recipe| %>
       <%= link_to recipe_path(recipe), class: 'recipe-link' do %>

@@ -15,6 +15,50 @@
   padding: 5px;
 }
 
+.ingredients-filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  height: 150px;
+}
+
+.ingredients-filter-form {
+  border: 2px solid green;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.ingredients-filter-reset {
+  width: 150px;
+  margin-right: 10px;
+  display: flex;
+  align-self: flex-end;
+}
+
+.ingredients-filter-submit {
+  display: block;
+  height: 30px;
+  width: 150px;
+  margin-right: 5px;
+}
+
+.ingredient-filter-controls {
+  display: flex;
+  justify-content: right;
+  margin-bottom: 10px;
+}
+
+.ingredient-select {
+  display: flex;
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  width: 2em;
+  height: 2rem;
+  accent-color: green;
+}
+
 .recipe-link {
   display: block;
   border: 2px solid red;
