@@ -24,8 +24,7 @@ RSpec.describe RecipeImporter do
 
       expect(recipe1.ingredients.count).to eq 8
 
-      food_item1 = FoodItem.find_by(title: 'all-purpose flour')
-      ingredient1 = recipe1.ingredients.find_by(food_item: food_item1)
+      ingredient1 = recipe1.ingredients.find_by(content: 'all-purpose flour')
 
       expect(ingredient1.amount).to eq '1'
       expect(ingredient1.unit).to eq 'cup'
@@ -38,8 +37,7 @@ RSpec.describe RecipeImporter do
       expect(recipe2.ratings).to eq 4.74
       expect(recipe2.ingredients.count).to eq 7
 
-      food_item2 = FoodItem.find_by(title: 'chopped walnuts')
-      ingredient2 = recipe2.ingredients.find_by(food_item: food_item2)
+      ingredient2 = recipe2.ingredients.find_by(content: 'chopped walnuts')
 
       expect(ingredient2.amount).to eq '1/2'
       expect(ingredient2.unit).to eq 'cup'

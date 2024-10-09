@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :ingredient do
+    content { 'sand' }
     amount { '2' }
     unit { 'kg' }
     recipe
-    food_item
   end
 end

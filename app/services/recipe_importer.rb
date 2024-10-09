@@ -38,10 +38,9 @@ module RecipeImporter
 
     def build_ingredient(ingredient_data)
       parsed_data = Ingreedy.parse(ingredient_data)
-      food_item = FoodItem.find_or_create_by(title: parsed_data.ingredient)
 
       Ingredient.new(
-        food_item:,
+        content: parsed_data.ingredient,
         amount: parsed_data.amount,
         unit: parsed_data.unit
       )

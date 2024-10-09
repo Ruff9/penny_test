@@ -12,22 +12,26 @@ RSpec.feature 'Recipes', type: :feature do
       expect(page).to have_content('Mid lasagna')
     end
 
-    it 'allows to filter recipe by food_item' do
+    it 'filters recipes by ingredients', :focus do
       recipe1 = create :recipe, title: 'Pancakes'
-      food_item1 = create :food_item, title: 'Brown sugar'
-      ingredient1 = create :ingredient, food_item: food_item1, recipe: recipe1
+      create :ingredient, content: 'Brown sugar', recipe: recipe1
 
       recipe2 = create :recipe, title: 'French fries'
-      food_item2 = create :food_item, title: 'Potatoes'
-      ingredient2 = create :ingredient, food_item: food_item2, recipe: recipe2
+      create :ingredient, content: 'Potatoes', recipe: recipe2
+      create :ingredient, content: 'salt', recipe: recipe2
+
+      recipe3 = create :recipe, title: 'Tomato soup'
+      create :ingredient, content: 'salt', recipe: recipe3
 
       visit recipes_path
 
       check 'potato'
+      check 'salt'
       click_button 'Filter recipes'
 
       expect(page).to have_content('French fries')
       expect(page).not_to have_content('Pancakes')
+      expect(page).not_to have_content('Tomato soup')
     end
   end
 
