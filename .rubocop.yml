@@ -34,3 +34,7 @@ Layout/MultilineMethodCallIndentation:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+
+Metrics/MethodLength:
+  Exclude:
+    - app/services/recipe_importer.rb

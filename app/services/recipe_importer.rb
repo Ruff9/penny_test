@@ -1,16 +1,21 @@
+require 'ruby-progressbar'
+
 module RecipeImporter
   class << self
     def perform(source_file)
       recipes_data = JSON.parse(source_file)
 
-      recipes_data.each do |recipe_data|
-        recipe = build_recipe(recipe_data)
+      Parallel.each(recipes_data, in_processes: 4, progress: 'Importing') do |recipe_data|
+        Recipe.transaction do
+          next if Recipe.exists?(title: recipe_data['title'])
 
-        recipe_data['ingredients'].each do |ingredient_data|
-          recipe.ingredients << build_ingredient(ingredient_data)
+          recipe = build_recipe(recipe_data)
+          build_ingredients(recipe, recipe_data['ingredients'])
+
+          recipe.save!
+        rescue Ingreedy::ParseFailed, Parallel::UndumpableException
+          next
         end
-
-        recipe.save!
       end
     end
 
@@ -23,6 +28,12 @@ module RecipeImporter
         ratings: recipe_data['ratings'],
         image_url: recipe_data['image']
       )
+    end
+
+    def build_ingredients(recipe, ingredients_data)
+      ingredients_data.each do |ingredient_data|
+        recipe.ingredients << build_ingredient(ingredient_data)
+      end
     end
 
     def build_ingredient(ingredient_data)

@@ -5,6 +5,10 @@ def load_test_file(name)
 end
 
 RSpec.describe RecipeImporter do
+  before(:each) do
+    allow_any_instance_of(ProgressBar::Output).to receive(:stream).and_return(double.as_null_object)
+  end
+
   describe '#perform' do
     it 'import json seed to database' do
       source_file = load_test_file('two_recipes')
@@ -39,6 +43,14 @@ RSpec.describe RecipeImporter do
 
       expect(ingredient2.amount).to eq '1/2'
       expect(ingredient2.unit).to eq 'cup'
+    end
+
+    it "don't import existing recipe" do
+      Recipe.create(title: 'Unique recipe title')
+
+      source_file = load_test_file('existing_recipe')
+
+      expect { RecipeImporter.perform(source_file) }.not_to change(Recipe, :count)
     end
   end
 end
