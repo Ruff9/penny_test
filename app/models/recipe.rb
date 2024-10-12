@@ -1,13 +1,19 @@
 class Recipe < ApplicationRecord
-  has_many :ingredients, dependent: :destroy
-
   validates :title, presence: true, uniqueness: true
 
-  scope :filtered_by_ingredients, lambda { |ingredient_list|
+  def self.filtered_by_ingredients(ingredient_list)
     if ingredient_list.present?
-      joins(:ingredients).where('ingredients.content ~* ?', ingredient_list)
+      query = ->(ingredient) { "array_to_string(ingredients, '||') ilike '%#{ingredient}%'" }
+      result = Recipe.where(query.call(ingredient_list.first))
+
+      ingredient_list.drop(1).map { |ingredient| result = result.where(query.call(ingredient)) }
+
+      result
     else
-      all
+      Recipe.all
     end
-  }
+  end
 end
+
+# formatted_ingredient_list = ingredient_list.map { |val| "%#{val}%" }
+# Recipe.where("array_to_string(ingredients, '||') ilike any ( array[?] )", formatted_ingredient_list)

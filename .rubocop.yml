@@ -38,3 +38,7 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Exclude:
     - app/services/recipe_importer.rb
+
+Style/WordArray:
+  Exclude:
+  - spec/**/*

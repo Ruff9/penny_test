@@ -10,7 +10,7 @@ module RecipeImporter
           next if Recipe.exists?(title: recipe_data['title'])
 
           recipe = build_recipe(recipe_data)
-          build_ingredients(recipe, recipe_data['ingredients'])
+          add_ingredients(recipe, recipe_data['ingredients'])
 
           recipe.save!
         rescue Ingreedy::ParseFailed, Parallel::UndumpableException
@@ -30,20 +30,10 @@ module RecipeImporter
       )
     end
 
-    def build_ingredients(recipe, ingredients_data)
+    def add_ingredients(recipe, ingredients_data)
       ingredients_data.each do |ingredient_data|
-        recipe.ingredients << build_ingredient(ingredient_data)
+        recipe.ingredients << ingredient_data
       end
-    end
-
-    def build_ingredient(ingredient_data)
-      parsed_data = Ingreedy.parse(ingredient_data)
-
-      Ingredient.new(
-        content: parsed_data.ingredient,
-        amount: parsed_data.amount,
-        unit: parsed_data.unit
-      )
     end
   end
 end

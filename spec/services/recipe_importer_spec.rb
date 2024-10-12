@@ -23,11 +23,7 @@ RSpec.describe RecipeImporter do
       expect(recipe1.ratings).to eq 4.74
 
       expect(recipe1.ingredients.count).to eq 8
-
-      ingredient1 = recipe1.ingredients.find_by(content: 'all-purpose flour')
-
-      expect(ingredient1.amount).to eq '1'
-      expect(ingredient1.unit).to eq 'cup'
+      expect(recipe1.ingredients).to include '1 cup all-purpose flour'
 
       recipe2 = Recipe.find_by(title: 'Monkey Bread I')
 
@@ -35,12 +31,9 @@ RSpec.describe RecipeImporter do
       expect(recipe2.prep_time).to eq 15
       expect(recipe2.author).to eq 'deleteduser'
       expect(recipe2.ratings).to eq 4.74
+
       expect(recipe2.ingredients.count).to eq 7
-
-      ingredient2 = recipe2.ingredients.find_by(content: 'chopped walnuts')
-
-      expect(ingredient2.amount).to eq '1/2'
-      expect(ingredient2.unit).to eq 'cup'
+      expect(recipe2.ingredients).to include '½ cup chopped walnuts'
     end
 
     it "don't import existing recipe" do

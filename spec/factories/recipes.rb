@@ -7,8 +7,6 @@ FactoryBot.define do
     cook_time { 10 }
     ratings { 2.2 }
 
-    after(:create) do |recipe|
-      create(:ingredient, recipe:)
-    end
+    ingredients { %w[sand] }
   end
 end

@@ -12,16 +12,10 @@ RSpec.feature 'Recipes', type: :feature do
       expect(page).to have_content('Mid lasagna')
     end
 
-    it 'filters recipes by ingredients', :focus do
-      recipe1 = create :recipe, title: 'Pancakes'
-      create :ingredient, content: 'Brown sugar', recipe: recipe1
-
-      recipe2 = create :recipe, title: 'French fries'
-      create :ingredient, content: 'Potatoes', recipe: recipe2
-      create :ingredient, content: 'salt', recipe: recipe2
-
-      recipe3 = create :recipe, title: 'Tomato soup'
-      create :ingredient, content: 'salt', recipe: recipe3
+    it 'filters recipes by ingredients' do
+      create :recipe, title: 'Pancakes', ingredients: ['Brown sugar']
+      create :recipe, title: 'French fries', ingredients: ['Potatoes', 'salt']
+      create :recipe, title: 'Tomato soup', ingredients: ['salt']
 
       visit recipes_path
 
