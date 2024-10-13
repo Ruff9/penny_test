@@ -39,4 +39,4 @@ $ rails db:setup
 $ rails recipes:import
 ```
 
-Once this setup is done, you can launch a local server with `$ rails s`, or the test suite with `$ rspec`. You can also launch guard, who will watch the files and start rspec and rubocop.
+Once this setup is done, you can launch a local server with `$ rails s`, or the test suite with `$ rspec`. You can also launch guard, who will watch the files and start rspec and rubocop : `$ bundle exec guard`.
