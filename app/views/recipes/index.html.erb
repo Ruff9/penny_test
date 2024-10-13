@@ -12,19 +12,25 @@
     </div>
 
     <div class='ingredient-filter-controls'>
-      <%= link_to 'Clear filters', root_path, class: 'ingredients-filter-reset' %>
-      <%= form.submit 'Filter recipes', class: 'ingredients-filter-submit' %>
+      <%= link_to 'Clear filters', root_path, class: 'ingredients-filter-reset button' %>
+      <%= form.submit 'Filter recipes', class: 'ingredients-filter-submit button' %>
     </div>
   <% end %>
 
-  <div class='main-container'>
-    <% @recipes.each do |recipe| %>
-      <%= link_to recipe_path(recipe), class: 'recipe-link' do %>
-        <h2><%= recipe.title %></h2>
-      <% end %>
-    <% end %>
-
-    <%== pagy_nav(@pagy) %>
-  </div>
+  <% if @recipes.exists? %>
+    <div class='recipes-container'>
+      <div class='recipes-links-container'>
+          <% @recipes.each do |recipe| %>
+            <%= link_to recipe_path(recipe), class: 'recipe-link' do %>
+              <h2><%= recipe.title %></h2>
+              <span><%= recipe.ratings %>/5</span>
+            <% end %>
+          <% end %>
+      </div>
+        <%== pagy_nav(@pagy) %>
+    </div>
+  <% else %>
+    <p class='no-recipe-found'>No recipes found</p>
+  <% end %>
 </div>
 
