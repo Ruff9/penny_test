@@ -1,10 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: <%= ENV.fetch("DATABASE_HOST") %>
-  username: <%= ENV.fetch("DATABASE_USERNAME") %>
-  password: <%= ENV.fetch("DATABASE_PASSWORD") %>
-  pool: 5
+  url: <%= ENV['DATABASE_URL'] %>
 
 development:
   <<: *default
@@ -13,3 +10,7 @@ development:
 test:
   <<: *default
   database: penny_test
+
+production:
+  <<: *default
+  database: penny_production
