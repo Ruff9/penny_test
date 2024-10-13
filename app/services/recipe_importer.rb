@@ -13,8 +13,6 @@ module RecipeImporter
           add_ingredients(recipe, recipe_data['ingredients'])
 
           recipe.save!
-        rescue Ingreedy::ParseFailed, Parallel::UndumpableException
-          next
         end
       end
     end
